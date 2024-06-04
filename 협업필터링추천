@@ -1,0 +1,39 @@
+
+협업필터링 추천시스템 ai어시스던트
+
+(코랩으로 사용햇음)
+
+#임포트
+import pandas as pd
+import numpy as np
+
+
+#아이템 유저 생성
+item=['엑스칼리버','무한의대검','엘프의활','죽음의검','약자의검','망각의구','약자멸시']
+user=['user1','user2']
+
+#데이터 생성
+data = pd.DataFrame(columns=item, index=user)
+
+#데이터 입력
+data.loc['user1'] =[1,1,1,1,0,0,0]
+data.loc['user2'] =[1,1,0,0,1,1,0]
+
+#데이터확인
+data
+
+#데이터 계산하는법 코사인
+sum(data.loc['user1']* data.loc['user2'])/(np.sqrt(sum(data.loc['user1']**2))*np.sqrt(sum(data.loc['user2']**2)))
+
+-> 함수로 만들기
+def cos_similiarity(v1, v2):
+  dot_product = np.dot(v1, v2)
+  l2_norm = (np.sqrt(sum(np.square(v1)))*np.sqrt(sum(np.square(v2))))
+  similarity = dot_product/l2_norm
+  return similarity
+
+-> v1, v2
+- v1 = data.loc['user1']
+- v2 = data.loc['user2']
+#함수 활용
+cos_similiarity(v1, v2)
